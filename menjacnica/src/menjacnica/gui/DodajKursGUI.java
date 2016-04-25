@@ -23,8 +23,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
-public class DodajKursGUI extends JFrame {
-
+public class DodajKursGUI extends JFrame 
+{
 	private JPanel contentPane;
 	private JLabel lblSifra;
 	private JLabel lblNaziv;
@@ -46,7 +46,8 @@ public class DodajKursGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DodajKursGUI(MenjacnicaGUI glavniProzor) {
+	public DodajKursGUI(MenjacnicaGUI glavniProzor) 
+	{
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DodajKursGUI.class.getResource("/icons/Screenshot.png")));
 		setResizable(false);
 		setTitle("Dodaj kurs");
@@ -153,59 +154,47 @@ public class DodajKursGUI extends JFrame {
 		}
 		return textFieldSkraceniNaziv;
 	}
-	private JButton getBtnDodaj() {
-		if (btnDodaj == null) {
+	private JButton getBtnDodaj() 
+	{
+		if (btnDodaj == null) 
+		{
 			btnDodaj = new JButton("Dodaj");
-			btnDodaj.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					unesiKurs();
+			btnDodaj.addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					GUIKontroler.unesiKurs(textFieldNaziv.getText(),textFieldSkraceniNaziv.getText(),(Integer)spinnerSifra.getValue(),textFieldProdajniKurs.getText(),textFieldKupovniKurs.getText(),textFieldSrednjiKurs.getText());
+				
+					dispose();
 				}
 			});
 		}
 		return btnDodaj;
 	}
-	private JButton getBtnOdus() {
-		if (btnOdus == null) {
+	
+	private JButton getBtnOdus() 
+	{
+		if (btnOdus == null)
+		{
 			btnOdus = new JButton("Odustani");
-			btnOdus.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+			btnOdus.addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e)
+				{
 					dispose();
 				}
 			});
 		}
 		return btnOdus;
 	}
-	private JSpinner getSpinnerSifra() {
-		if (spinnerSifra == null) {
+	
+	private JSpinner getSpinnerSifra() 
+	{
+		if (spinnerSifra == null) 
+		{
 			spinnerSifra = new JSpinner();
 			spinnerSifra.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		}
 		return spinnerSifra;
-	}
-	
-	private void unesiKurs() {
-		try {
-			Valuta valuta = new Valuta();
-
-			// Punjenje podataka o valuti
-			valuta.setNaziv(textFieldNaziv.getText());
-			valuta.setSkraceniNaziv(textFieldSkraceniNaziv.getText());
-			valuta.setSifra((Integer)(spinnerSifra.getValue()));
-			valuta.setProdajni(Double.parseDouble(textFieldProdajniKurs.getText()));
-			valuta.setKupovni(Double.parseDouble(textFieldKupovniKurs.getText()));
-			valuta.setSrednji(Double.parseDouble(textFieldSrednjiKurs.getText()));
-			
-			// Dodavanje valute u kursnu listu
-			glavniProzor.sistem.dodajValutu(valuta);
-
-			// Osvezavanje glavnog prozora
-			glavniProzor.prikaziSveValute();
-			
-			//Zatvaranje DodajValutuGUI prozora
-			dispose();
-		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(contentPane, e1.getMessage(),
-					"Greska", JOptionPane.ERROR_MESSAGE);
-		}
 	}
 }
