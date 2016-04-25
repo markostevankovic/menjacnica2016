@@ -62,7 +62,7 @@ public class GUIKontroler
 	{
 		if (valuta != null) 
 		{
-			ObrisiKursGUI prozor = new ObrisiKursGUI(valuta);
+			ObrisiKursGUI prozor = new ObrisiKursGUI(startFrame, valuta);
 			prozor.setLocationRelativeTo(startFrame.getContentPane());
 			prozor.setVisible(true);
 		}

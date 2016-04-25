@@ -49,7 +49,7 @@ public class ObrisiKursGUI extends JFrame
 	/**
 	 * Create the frame.
 	 */
-	public ObrisiKursGUI(Valuta valuta)
+	public ObrisiKursGUI(MenjacnicaGUI glavniProzor, Valuta valuta)
 	{
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ObrisiKursGUI.class.getResource("/icons/Screenshot.png")));
 		setResizable(false);
