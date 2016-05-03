@@ -72,6 +72,9 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmObrisiKurs;
 	private JMenuItem mntmIzvrsiZamenu;
 	
+	//klasa na logickom nivou
+	protected Menjacnica sistem;
+	
 	private JTable table;
 
 	/**
@@ -119,8 +122,7 @@ public class MenjacnicaGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.add(getScrollPane(), BorderLayout.CENTER);
 		contentPane.add(getPanel(), BorderLayout.EAST);
-		
-	
+		sistem = new Menjacnica();
 	}
 
 	private JScrollPane getScrollPane() {
@@ -310,11 +312,18 @@ public class MenjacnicaGUI extends JFrame {
 				"O programu Menjacnica",
 				JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+	/*
 	protected void prikaziSveValute(LinkedList<Valuta> valute)
 	{
 		list.setListData(valute.toArray());
 	}
+	*/
+	protected void prikaziSveValute()
+	{
+		MenjacnicaTableModel model = (MenjacnicaTableModel)(table.getModel());
+		model.staviSveValuteUModel(sistem.vratiKursnuListu());
+	}
+	
 	
 	private JPopupMenu getPopupMenu() {
 		if (popupMenu == null) {

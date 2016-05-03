@@ -146,7 +146,7 @@ public class GUIKontroler
 			
 			menjacnica.dodajValutu(valuta);
 			
-			startFrame.prikaziSveValute(menjacnica.vratiKursnuListu());
+			startFrame.prikaziSveValute();
 		} 
 		catch (Exception exc)
 		{
@@ -155,6 +155,7 @@ public class GUIKontroler
 					exc.getMessage(),
 					"ERROR", 
 					JOptionPane.ERROR_MESSAGE);
+			// exc.printStackTrace();
 		}
 		
 	}
@@ -164,7 +165,7 @@ public class GUIKontroler
 		try
 		{
 			menjacnica.obrisiValutu(valuta);
-			startFrame.prikaziSveValute(menjacnica.vratiKursnuListu());
+			startFrame.prikaziSveValute();
 		} 
 		catch (Exception e) 
 		{
