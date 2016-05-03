@@ -171,7 +171,9 @@ public class MenjacnicaGUI extends JFrame {
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
-					GUIKontroler.prikaziObrisiKursGUI((Valuta)list.getSelectedValue());
+					// GUIKontroler.prikaziObrisiKursGUI((Valuta)list.getSelectedValue());
+					MenjacnicaTableModel model = (MenjacnicaTableModel) (table.getModel());
+					GUIKontroler.prikaziObrisiKursGUI(model.vratiValutu(table.getSelectedRow()));
 				}
 			});
 			btnObrisiKurs.setPreferredSize(new Dimension(140, 25));
@@ -321,7 +323,7 @@ public class MenjacnicaGUI extends JFrame {
 	protected void prikaziSveValute()
 	{
 		MenjacnicaTableModel model = (MenjacnicaTableModel)(table.getModel());
-		model.staviSveValuteUModel(sistem.vratiKursnuListu());
+		model.staviSveValuteUModel(GUIKontroler.vratiKursnuListu());
 	}
 	
 	

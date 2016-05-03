@@ -2,6 +2,7 @@ package menjacnica.gui;
 
 import java.awt.EventQueue;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -127,6 +128,7 @@ public class GUIKontroler
 			{
 				File file = fileChooser.getSelectedFile();
 				menjacnica.ucitajIzFajla(file.getAbsolutePath());
+				startFrame.prikaziSveValute();
 			}	
 		} 
 		catch (Exception exc)
@@ -192,5 +194,9 @@ public class GUIKontroler
 					JOptionPane.ERROR_MESSAGE);
 		}
 		return 0;	
+	}
+	
+	public static List<Valuta> vratiKursnuListu() {
+		return menjacnica.vratiKursnuListu();
 	}
 }
