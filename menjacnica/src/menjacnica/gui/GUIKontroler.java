@@ -87,7 +87,7 @@ public class GUIKontroler
 		else 
 		{
 			JOptionPane.showMessageDialog(
-					startFrame.getContentPane(),
+					null,
 					"You have to choose/select at least one row...",
 					"ERROR", 
 					JOptionPane.ERROR_MESSAGE);

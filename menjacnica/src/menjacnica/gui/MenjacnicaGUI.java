@@ -40,6 +40,7 @@ import javax.swing.JList;
 import menjacnica.Menjacnica;
 import menjacnica.MenjacnicaInterface;
 import menjacnica.Valuta;
+import menjacnica.gui.models.MenjacnicaTableModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -70,6 +71,8 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmDodajKurs;
 	private JMenuItem mntmObrisiKurs;
 	private JMenuItem mntmIzvrsiZamenu;
+	
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -123,7 +126,7 @@ public class MenjacnicaGUI extends JFrame {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setViewportView(getList());
+			scrollPane.setViewportView(getTable());
 		}
 		return scrollPane;
 	}
@@ -368,5 +371,15 @@ public class MenjacnicaGUI extends JFrame {
 			});
 		}
 		return mntmIzvrsiZamenu;
+	}
+	
+	private JTable getTable()
+	{
+		if (table == null)
+		{
+			table = new JTable();
+			table.setModel(new MenjacnicaTableModel());
+		}
+		return table;
 	}
 }
