@@ -35,8 +35,6 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JList;
-
 import menjacnica.Menjacnica;
 import menjacnica.MenjacnicaInterface;
 import menjacnica.Valuta;
@@ -65,7 +63,6 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmSave;
 	private JMenuItem mntmExit;
 	private JMenuItem mntmAbout;
-	private JList list;
 	
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmDodajKurs;
@@ -171,9 +168,12 @@ public class MenjacnicaGUI extends JFrame {
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
-					// GUIKontroler.prikaziObrisiKursGUI((Valuta)list.getSelectedValue());
-					MenjacnicaTableModel model = (MenjacnicaTableModel) (table.getModel());
-					GUIKontroler.prikaziObrisiKursGUI(model.vratiValutu(table.getSelectedRow()));
+					try{
+						MenjacnicaTableModel model = (MenjacnicaTableModel) (table.getModel());
+						GUIKontroler.prikaziObrisiKursGUI(model.vratiValutu(table.getSelectedRow()));
+					}catch(IndexOutOfBoundsException exc){
+						JOptionPane.showMessageDialog(null, "Brt moras red da selekujes");
+					}
 				}
 			});
 			btnObrisiKurs.setPreferredSize(new Dimension(140, 25));
@@ -190,7 +190,12 @@ public class MenjacnicaGUI extends JFrame {
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					GUIKontroler.prikaziIzvrsiZamenuGUI((Valuta)list.getSelectedValue());
+					try{
+						MenjacnicaTableModel model = (MenjacnicaTableModel) table.getModel();
+						GUIKontroler.prikaziIzvrsiZamenuGUI(model.vratiValutu(table.getSelectedRow()));
+					} catch(IndexOutOfBoundsException exc){
+						JOptionPane.showMessageDialog(null, "A care selektuj red");
+					}
 				}
 			});
 			btnIzvrsiZamenu.setPreferredSize(new Dimension(140, 25));
@@ -298,14 +303,6 @@ public class MenjacnicaGUI extends JFrame {
 	private static void addPopup(Component component, final JPopupMenu popup) {
 	}
 	
-	private JList getList() {
-		if (list == null) {
-			list = new JList();
-			addPopup(list, getPopupMenu());
-		}
-		return list;
-	}
-	
 	private void prikaziAboutProzor()
 	{
 		JOptionPane.showMessageDialog(
@@ -314,12 +311,7 @@ public class MenjacnicaGUI extends JFrame {
 				"O programu Menjacnica",
 				JOptionPane.INFORMATION_MESSAGE);
 	}
-	/*
-	protected void prikaziSveValute(LinkedList<Valuta> valute)
-	{
-		list.setListData(valute.toArray());
-	}
-	*/
+	
 	protected void prikaziSveValute()
 	{
 		MenjacnicaTableModel model = (MenjacnicaTableModel)(table.getModel());
@@ -361,7 +353,8 @@ public class MenjacnicaGUI extends JFrame {
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
-					GUIKontroler.prikaziObrisiKursGUI((Valuta)list.getSelectedValue());
+					MenjacnicaTableModel model = (MenjacnicaTableModel) (table.getModel());
+					GUIKontroler.prikaziObrisiKursGUI(model.vratiValutu(table.getSelectedRow()));
 				}
 			});
 		}
@@ -377,7 +370,8 @@ public class MenjacnicaGUI extends JFrame {
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					GUIKontroler.prikaziIzvrsiZamenuGUI((Valuta)list.getSelectedValue());
+					MenjacnicaTableModel model = (MenjacnicaTableModel) (table.getModel());
+					GUIKontroler.prikaziIzvrsiZamenuGUI(model.vratiValutu(table.getSelectedRow()));
 				}
 			});
 		}
