@@ -12,6 +12,7 @@ import sistemskeoperacije.SOUpisi;
 import menjacnica.Menjacnica;
 import menjacnica.MenjacnicaInterface;
 import menjacnica.Valuta;
+import menjacnica.gui.models.MenjacnicaTableModel;
 
 public class GUIKontroler 
 {
@@ -54,16 +55,31 @@ public class GUIKontroler
 	
 	public static void showDodajKursGUI()
 	{
-		DodajKursGUI prozor = new DodajKursGUI(startFrame);
+		DodajKursGUI prozor = new DodajKursGUI();
 		prozor.setLocationRelativeTo(null);
+		prozor.setLocationRelativeTo(startFrame.getContentPane());
 		prozor.setVisible(true);
+	}
+	
+	public static void prikaziAboutProzor()
+	{
+		JOptionPane.showMessageDialog(
+				null,
+				"Author: Bojan Tomic vs Marko Stevankovic, Verzija 1.0", 
+				"O programu Menjacnica",
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public static void prikaziSveValute(){
+		MenjacnicaTableModel model = (MenjacnicaTableModel)(startFrame.getTable().getModel());
+		model.staviSveValuteUModel(GUIKontroler.vratiKursnuListu());
 	}
 	
 	public static void prikaziObrisiKursGUI(Valuta valuta)
 	{
 		if (valuta != null) 
 		{
-			ObrisiKursGUI prozor = new ObrisiKursGUI(startFrame, valuta);
+			ObrisiKursGUI prozor = new ObrisiKursGUI(valuta);
 			prozor.setLocationRelativeTo(startFrame.getContentPane());
 			prozor.setVisible(true);
 		}
@@ -81,8 +97,8 @@ public class GUIKontroler
 	{
 		if (valuta != null)
 		{
-			IzvrsiZamenuGUI prozor = new IzvrsiZamenuGUI(startFrame, valuta);
-			prozor.setLocationRelativeTo(null);
+			IzvrsiZamenuGUI prozor = new IzvrsiZamenuGUI(valuta);
+			prozor.setLocationRelativeTo(startFrame.getContentPane());
 			prozor.setVisible(true);
 		}
 		else 
@@ -128,7 +144,7 @@ public class GUIKontroler
 			{
 				File file = fileChooser.getSelectedFile();
 				menjacnica.ucitajIzFajla(file.getAbsolutePath());
-				startFrame.prikaziSveValute();
+				GUIKontroler.prikaziSveValute();
 			}	
 		} 
 		catch (Exception exc)
@@ -148,7 +164,7 @@ public class GUIKontroler
 			
 			menjacnica.dodajValutu(valuta);
 			
-			startFrame.prikaziSveValute();
+			GUIKontroler.prikaziSveValute();
 		} 
 		catch (Exception exc)
 		{
@@ -167,7 +183,7 @@ public class GUIKontroler
 		try
 		{
 			menjacnica.obrisiValutu(valuta);
-			startFrame.prikaziSveValute();
+			GUIKontroler.prikaziSveValute();
 		} 
 		catch (Exception e) 
 		{
@@ -183,7 +199,9 @@ public class GUIKontroler
 	{
 		try
 		{
-			double vrednost = SOIzvrsiTransakciju.izvrsiTransakciju(valuta, prodaja,(Double.parseDouble(iznos)) );
+			// double vrednost = SOIzvrsiTransakciju.izvrsiTransakciju(valuta, prodaja,(Double.parseDouble(iznos)) );
+			
+			double vrednost = menjacnica.izvrsiTransakciju(valuta, prodaja, (Double.parseDouble(iznos)));
 			return vrednost;
 		}
 		catch(Exception e){

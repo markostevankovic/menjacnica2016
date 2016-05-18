@@ -69,9 +69,6 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmObrisiKurs;
 	private JMenuItem mntmIzvrsiZamenu;
 	
-	//klasa na logickom nivou
-	protected Menjacnica sistem;
-	
 	private JTable table;
 
 	/**
@@ -97,7 +94,6 @@ public class MenjacnicaGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.add(getScrollPane(), BorderLayout.CENTER);
 		contentPane.add(getPanel(), BorderLayout.EAST);
-		sistem = new Menjacnica();
 	}
 
 	private JScrollPane getScrollPane() {
@@ -271,7 +267,7 @@ public class MenjacnicaGUI extends JFrame {
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
-					prikaziAboutProzor();
+					GUIKontroler.prikaziAboutProzor();
 				}
 			});
 		}
@@ -281,20 +277,13 @@ public class MenjacnicaGUI extends JFrame {
 	private static void addPopup(Component component, final JPopupMenu popup) {
 	}
 	
-	private void prikaziAboutProzor()
-	{
-		JOptionPane.showMessageDialog(
-				contentPane,
-				"Author: Bojan Tomic vs Marko Stevankovic, Verzija 1.0", 
-				"O programu Menjacnica",
-				JOptionPane.INFORMATION_MESSAGE);
-	}
-	
+	/*
 	protected void prikaziSveValute()
 	{
 		MenjacnicaTableModel model = (MenjacnicaTableModel)(table.getModel());
 		model.staviSveValuteUModel(GUIKontroler.vratiKursnuListu());
 	}
+	*/
 	
 	
 	private JPopupMenu getPopupMenu() {
@@ -356,7 +345,7 @@ public class MenjacnicaGUI extends JFrame {
 		return mntmIzvrsiZamenu;
 	}
 	
-	private JTable getTable()
+	public JTable getTable()
 	{
 		if (table == null)
 		{
